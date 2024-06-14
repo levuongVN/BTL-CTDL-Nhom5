@@ -68,15 +68,23 @@ void OutputMinToMax(cay T){// In tu gia thap den gia cao
         OutputMinToMax(T->right);
     }
 }
-void ReadFileToTree(cay &T){
-    ifstream f1;
-    f1.open("Sach.txt");
-    if(!f1){
-        cout<<"mo tep loi!!";
-        return ;
+void InMaxtoMin(cay T){ // in tu cao den thap
+    if( T != NULL){
+        InMaxtoMin(T->right);
+       cout<<T->key.Ten_Sach<<" "<<T->key.Ten_Tac_Gia<<" "<<T->key.Gia_Sach<<endl;
+       InMaxtoMin(T->left);
     }
-    
 }
+
+// void ReadFileToTree(cay &T){
+//     ifstream f1;
+//     f1.open("Sach.txt");
+//     if(!f1){
+//         cout<<"mo tep loi!!";
+//         return ;
+//     }
+    
+// }
 void menu(){
     cay T;
     keys x;
@@ -126,15 +134,21 @@ void menu(){
                 SearchByAuthor(T,x);
                 break;
             }
-            case 12:{
+            case 9://In giá trị từ cao đến thấp
+            {
                 OutputMinToMax(T);
                 break;
             }
-            case 11:
+            case 10:// In giá trị từ thấp đến cao
             {
-                ReadFileToTree(T);
+                InMaxtoMin(T);
                 break;
             }
+            // case 11:
+            // {
+            //     ReadFileToTree(T);
+            //     break;
+            // }
         }
     } while (a!=100);
 }
