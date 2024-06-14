@@ -1,4 +1,5 @@
 #include<iostream>
+#include<fstream>
 #include<string>
 using namespace std;
 struct Sach{
@@ -67,6 +68,15 @@ void OutputMinToMax(cay T){// In tu gia thap den gia cao
         OutputMinToMax(T->right);
     }
 }
+void ReadFileToTree(cay &T){
+    ifstream f1;
+    f1.open("Sach.txt");
+    if(!f1){
+        cout<<"mo tep loi!!";
+        return ;
+    }
+    
+}
 void menu(){
     cay T;
     keys x;
@@ -74,10 +84,16 @@ void menu(){
     do {
         cout<<"Nhap chuong trinh\n";
         cout<<"1. Khoi tao\n";
+		cout<<"3. Kiem tra cay rong\n";
         cout<<"2. Them 1 phan tu\n";
         cout<<"4. Tim kiem sach bang ten sach\n";
         cout<<"5. Tim kiem sach bang ten tac gia\n";
         cout<<"6. Tim kiem sach theo menh gia\n";
+		cout<<"7. Tim kiem sach theo menh gia cao nhat\n";
+		cout<<"8. Tim kiem sach theo menh gia thap nhat\n";
+		cout<<"9. In danh sach tu thap den cao\n";
+		cout<<"10. In danh sach tu cao den thap\n";
+		cout<<"11. Doc du lieu tu file -\n";
         cout<<"12. In sach theo gia tu thap den cao\n";
         cin>>a;
         switch (a) {
@@ -112,6 +128,11 @@ void menu(){
             }
             case 12:{
                 OutputMinToMax(T);
+                break;
+            }
+            case 11:
+            {
+                ReadFileToTree(T);
                 break;
             }
         }

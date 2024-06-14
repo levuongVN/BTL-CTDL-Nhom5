@@ -1,9 +1,9 @@
-101 bai code thieu nhi
-le vuong
-5000
-202 bai tho hay
-quang thing
-3000
-303 bai nhac hay
+5000 
+101 bai code hay
 vu tien
-4000
+3000
+bai nhac hay nhat
+quang thing
+2800
+cach hoc lam it
+le vuong
