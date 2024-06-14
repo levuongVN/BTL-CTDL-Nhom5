@@ -1,134 +1,94 @@
-//Cài đặt danh sách bằng con trỏ
 #include<iostream>
+#include<string>
 using namespace std;
-struct Sach
-{
-	string Ten_Sach;
-	string Ten_Tac_Gia;
-	float Gia_Sach;
-    int masach;
+struct Sach{
+     string Ten_Sach;
+    string Ten_Tac_Gia;
+    float Gia_Sach;
 };
-typedef Sach Item;
-struct TNode
-{
-	Item Key;
-	TNode *Left;
-	TNode *Right;
+typedef Sach keys;
+struct Tree{
+    keys key;
+    Tree *left;
+    Tree *right;
 };
-typedef TNode *Tree;
-//Khởi tạo danh sách
-void Init(Tree &T)
-{
-	T=NULL;
+typedef Tree *cay;
+void Init(cay &T){
+    T=NULL;
 }
-//Kiểm tra cây rỗng
-bool isEmpty(Tree T)
-{
-	if(T==NULL)
-		return true;
-	else
-		return false;
+void AddElm(cay &T,keys x){// Them 1 phan tu vao cay
+    if(T==NULL){
+        T= new Tree;
+        T->key=x;
+        T->left=NULL;
+        T->right=NULL;
+    }
+    else{
+        if(x.Gia_Sach<T->key.Gia_Sach){
+            AddElm(T->left,x);
+        }
+        else{
+            AddElm(T->right,x);
+        }
+    }
 }
-//Thêm 1 giá trị x vào cây T
-void AddNode(Tree &T, Item x)
-{
-	if(T==NULL) //Cây rỗng
-	{
-		T = new TNode;
-		T->Key = x;
-		T->Left =NULL;
-		T->Right =NULL;
-	}
-	else //Cây không rỗng
-	{
-		if(T->Key.Gia_Sach > x.Gia_Sach) 
-		{
-			AddNode(T->Left,x); //Thêm vào bên trái
-		}
-		else 
-		{
-			AddNode(T->Right,x);//Thêm vào bên phải
-		}
-		
-	}
+
+void Search(cay &T, keys x){
+    while(T!=NULL){
+        if(x.Ten_Sach==T->key.Ten_Sach){
+            cout<<T->key.Ten_Sach<<" "<<T->key.Ten_Tac_Gia<<" "<<T->key.Gia_Sach<<endl;
+        }
+        Search(T->left,x);
+        Search(T->right,x);
+    }
 }
-// Hiển thị danh sách
-void HienThiDanhSach(Tree T)
-{
-	while (T!=NULL)
-	{
-		cout<<T->Key.Gia_Sach<<"\t"<<T->Key.Ten_Sach<<"\t"<<T->Key.Ten_Tac_Gia<<endl;
-		T=T->Left;
-	}
-	
+void OutputMinToMax(cay T){// In tu gia thap den gia cao
+    if(T!=NULL){
+        OutputMinToMax(T->left);
+        cout<<T->key.Ten_Sach<<" "<<T->key.Ten_Tac_Gia<<" "<<T->key.Gia_Sach<<endl;
+        OutputMinToMax(T->right);
+    }
 }
-//Menu
-void Menu(Tree T)
-{
-	int LuaChon;
-	
-	do
-	{
-		cout<<"\nCAC CHUC NANG\n";
-		cout<<"1. Khoi tao\n";
-		cout<<"2. Kiem tra cay rong\n";
-		cout<<"3. Them 1 quyen sach vao danh sach \n";
+void menu(){
+    cay T;
+    keys x;
+    int a;
+    do {
+        cout<<"Nhap chuong trinhn";
+        cout<<"1. Khoi tao\n";
+        cout<<"2. Them 1 phan tu\n";
         cout<<"4. Tim kiem sach bang ten sach\n";
         cout<<"5. Tim kiem sach bang ten tac gia\n";
         cout<<"6. Tim kiem sach theo menh gia\n";
-        cout<<"7. Tim kiem sach theo menh gia cao nhat\n";
-        cout<<"8. Tim kiem sach theo menh gia thap nhat\n";
-        cout<<"9. In sach theo gia tien tu thap den cao\n";
-        cout<<"10. In sach theo gia tien tu cao den thap\n";
-        cout<<"11. Doc du lieu tu file\n";
-        cout<<"10. In danh sach\n";
-		
-		cout<<"Moi chon chuc nang (1-9)?";
-		cin>>LuaChon;
-		switch(LuaChon)
-		{
-			case 1:// Khởi tạo
-			{
-				Init(T);
-				cout<<"Da khoi tao!";
-				break;
-			}
-			case 2:// Kiểm tra rỗng
-			{
-				if (isEmpty(T))
-					cout<<"Cay rong!";
-				else
-					cout<<"Cay khong trong!";
-				break;
-			}
-			case 3: // Thêm 1 nút vào cây
-			{
-				Item x;
-				cout<<"Nhap thong tin Sach\n";
-				cout<<"Ten sach: ";
-				getline(cin,x.Ten_Sach);
-				cin.ignore();
-				cout<<"Ho ten Tac Gia: ";
-				getline(cin,x.Ten_Tac_Gia);
-				cin.ignore();
-				cout<<"Gia Sach: ";
-				cin>>x.Gia_Sach;
-				AddNode(T,x);
-				cout<<"Da xong!\n";
-				break;
-			}
-			
-			case 9:
-			{
-				cout<<"Tam biet!";
-				break;
-			}		
-		}
-	}while(LuaChon!=9);
+        cout<<"12. In sach theo gia tu thap den cao\n";
+        cin>>a;
+        switch (a) {
+            case 1:
+                Init(T);
+                cout<<"Done!\n";
+                break;
+            case 2:{
+                cout<<"Nhap thong tin sach\n";
+                cout<<"Gia sach?\t";cin>>x.Gia_Sach;
+                cin.ignore();
+                cout<<"Nhap ten sach:\t";getline(cin,x.Ten_Sach);
+                cout<<"Nhap ten tac gia:\t";getline(cin,x.Ten_Tac_Gia);
+                AddElm(T, x);
+                cout<<"Da xong\n";
+                break;
+            }
+            case 3:{
+                OutputMinToMax(T);
+                break;
+            }
+            case 4:{
+                cout<<"Nhap ten sach: "; getline(cin,x.Ten_Sach);
+                Search(T,x);
+                break;
+            }
+        }
+    } while (a!=100);
 }
-int main()
-{
-	Tree T;
-	Menu(T);
-	return 0;
+int main(){
+    menu();
 }
