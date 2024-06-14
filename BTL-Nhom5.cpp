@@ -74,10 +74,14 @@ void Menu(Tree T)
 		cout<<"2. Kiem tra cay rong\n";
 		cout<<"3. Them 1 quyen sach vao danh sach \n";
         cout<<"4. Tim kiem sach bang ten sach\n";
-        cout<<"5. Tim kiem sach theo menh gia\n";
-        cout<<"6. In sach theo gia tien tu thap den cao\n";
-        cout<<"7. In sach theo gia tien tu cao den thap\n";
-		cout<<"8. Tim kiem theo tac gia\n";
+        cout<<"5. Tim kiem sach bang ten tac gia\n";
+        cout<<"6. Tim kiem sach theo menh gia\n";
+        cout<<"7. Tim kiem sach theo menh gia cao nhat\n";
+        cout<<"8. Tim kiem sach theo menh gia thap nhat\n";
+        cout<<"9. In sach theo gia tien tu thap den cao\n";
+        cout<<"10. In sach theo gia tien tu cao den thap\n";
+        cout<<"11. Doc du lieu tu file\n";
+        cout<<"10. In danh sach\n";
 		
 		cout<<"Moi chon chuc nang (1-9)?";
 		cin>>LuaChon;
