@@ -34,12 +34,30 @@ void AddElm(cay &T,keys x){// Them 1 phan tu vao cay
 }
 
 void Search(cay &T, keys x){
-    while(T!=NULL){
+    if(T!=NULL){
         if(x.Ten_Sach==T->key.Ten_Sach){
             cout<<T->key.Ten_Sach<<" "<<T->key.Ten_Tac_Gia<<" "<<T->key.Gia_Sach<<endl;
         }
         Search(T->left,x);
         Search(T->right,x);
+    }
+}
+void SearchByAuthor(cay &T, keys x){
+    if(T!=NULL){
+        if(x.Ten_Tac_Gia==T->key.Ten_Tac_Gia){
+            cout<<T->key.Ten_Sach<<" "<<T->key.Ten_Tac_Gia<<" "<<T->key.Gia_Sach<<endl;
+        }
+        SearchByAuthor(T->left,x);
+        SearchByAuthor(T->right,x);
+    }
+}
+void SearchByPrice(cay &T, keys x){
+    if(T!=NULL){
+        if(x.Gia_Sach==T->key.Gia_Sach){
+            cout<<T->key.Ten_Sach<<" "<<T->key.Ten_Tac_Gia<<" "<<T->key.Gia_Sach<<endl;
+        }
+        SearchByPrice(T->left,x);
+        SearchByPrice(T->right,x);
     }
 }
 void OutputMinToMax(cay T){// In tu gia thap den gia cao
@@ -69,7 +87,8 @@ void menu(){
                 break;
             case 2:{
                 cout<<"Nhap thong tin sach\n";
-                cout<<"Gia sach?";cin>>x.Gia_Sach;
+                cout<<"Gia sach?";
+                cin>>x.Gia_Sach;
                 cin.ignore();
                 cout<<"Nhap ten sach:";getline(cin,x.Ten_Sach);
                 cout<<"Nhap ten tac gia:";getline(cin,x.Ten_Tac_Gia);
@@ -77,13 +96,22 @@ void menu(){
                 cout<<"Da xong\n";
                 break;
             }
-            case 3:{
-                OutputMinToMax(T);
+            case 4:{
+                cout<<"Nhap ten sach: ";
+                cin.ignore();// Xoa dau '\n' van con ton tai tu truoc do
+                getline(cin,x.Ten_Sach);
+                Search(T,x);
                 break;
             }
-            case 4:{
-                cout<<"Nhap ten sach: "; getline(cin,x.Ten_Sach);
-                Search(T,x);
+            case 5:{
+                cout<<"Nhap ten tac gia: ";
+                cin.ignore();
+                getline(cin,x.Ten_Tac_Gia);
+                SearchByAuthor(T,x);
+                break;
+            }
+            case 12:{
+                OutputMinToMax(T);
                 break;
             }
         }
