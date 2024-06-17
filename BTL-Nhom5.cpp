@@ -124,7 +124,7 @@ int DemSach(Tree T, int price  ) {
 
 // Tìm sách theo tên tác giả
 void TimSachTheoTenTG(Tree T, string TenTG) {
-    if (T != NULL) {
+if (T != NULL) {
         if (T->Key.TenTG == TenTG) {
             cout << "Ten sach la: " << T->Key.TenSach << "\t" << "Gia sach: " << T->Key.GiaSach << endl;
         }
@@ -236,7 +236,7 @@ void Menu(Tree T) {
         cout << "8. Tong gia tri sach trong cay\n";
         cout << "9. Dem so luong sach trong cay\n";
         cout << "10. Trung binh gia cua moi cuon sach\n";
-        cout << "11. Dem so sach duoi so tien la 5000 dong\n";
+        cout << "11. Dem so luong sach co gia duoi 5000 dong\n";
         cout << "12. Tim sach theo ten tac gia\n";
         cout << "13. Tim tac gia theo ten sach\n";
         cout << "14. Tim sach theo gia tri sach\n";
@@ -305,7 +305,7 @@ void Menu(Tree T) {
                 {
                     string tenTacGia;
                     cout << "Nhap ten tac gia: ";
-                    cin.ignore();
+cin.ignore();
                     getline(cin, tenTacGia);
                     cout << "Sach can tim voi tac gia " << tenTacGia << " la: " << endl;
                     TimSachTheoTenTG(T, tenTacGia);
@@ -379,7 +379,7 @@ void Menu(Tree T) {
                 }
                 break;
             case 20: // Thoát
-                cout << "Tam biet!";
+cout << "Tam biet!";
                 break;
         }
     } while (LuaChon != 20);
