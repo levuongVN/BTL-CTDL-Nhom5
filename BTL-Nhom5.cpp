@@ -236,7 +236,11 @@ void Menu(Tree T) {
         cout << "8. Tong gia tri sach trong cay\n";
         cout << "9. Dem so luong sach trong cay\n";
         cout << "10. Trung binh gia cua moi cuon sach\n";
+<<<<<<< Updated upstream
         cout << "11. Dem so luong sach co gia duoi 5000 dong\n";
+=======
+        cout << "11. Dem so sach duoi so tien la 5000 dong\n";
+>>>>>>> Stashed changes
         cout << "12. Tim sach theo ten tac gia\n";
         cout << "13. Tim tac gia theo ten sach\n";
         cout << "14. Tim sach theo gia tri sach\n";
@@ -379,7 +383,11 @@ cin.ignore();
                 }
                 break;
             case 20: // Thoát
+<<<<<<< Updated upstream
 cout << "Tam biet!";
+=======
+            cout << "Tam biet!";
+>>>>>>> Stashed changes
                 break;
         }
     } while (LuaChon != 20);
