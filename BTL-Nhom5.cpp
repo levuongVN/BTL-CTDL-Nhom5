@@ -260,7 +260,7 @@ void Menu(Tree T) {
         cout << "6. In sach theo gia tri tu cao den thap \n";
         cout << "7. Doc du lieu tu tep\n";
         cout << "8. Tong gia tri sach \n";
-        cout << "9. Dem so luong sach cua mot tac gia tac gia \n";
+        cout << "9. Dem so luong sach cua mot tac gia\n";
         cout << "10. Trung binh gia cua moi cuon sach\n";
         cout << "11. Loc sach co khoang gia nho hon gia nguoi dung nhap\n";
         cout << "12. Tim sach theo ten tac gia\n";
@@ -272,7 +272,7 @@ void Menu(Tree T) {
         cout << "18. Xoa toan bo sach\n";
         cout << "19. Ghi du lieu vao tep\n";
         cout << "20. Cap nhat thong tin moi cua mot quyen sach\n";
-        cout<<"21. Tam biet!\n";
+        cout << "21. Tam biet!\n";
         cout << "Moi chon chuc nang (1-21)?";
         cin >> LuaChon;
         switch (LuaChon) {
