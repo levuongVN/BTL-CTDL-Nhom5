@@ -336,7 +336,7 @@ void Menu(Tree T) {
                 cout << "Trung binh gia cua 1 cuon sach la:" << (float)TongGiaTriSach(T) / DemSoLuongSach(T) << endl;
                 break;
             }
-            case 11:{ // Đếm số sách dưới 5000 dong
+            case 11:{ // Đếm số sách dưới số tiền người dùng nhập
                 int price ;
                 cout<<"Nhap khoang gia ban muon tim kiem!\n";
                 cin>>price;
