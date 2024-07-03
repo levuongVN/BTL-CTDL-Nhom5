@@ -125,10 +125,11 @@ void DemSach(Tree T, int price  ) {
 void TimSachTheoTenTG(Tree T, string TenTG) {
 if (T != NULL) {
         if (T->Key.TenTG == TenTG) {
-            cout << "Ten sach la: " << T->Key.TenSach << "\t" << "Gia sach: " << T->Key.GiaSach << endl;
-        }
+            cout << "Ten sach la: " << T->Key.TenSach << " " << "Gia sach: " << T->Key.GiaSach << endl;
+        }else{
         TimSachTheoTenTG(T->Left, TenTG);
         TimSachTheoTenTG(T->Right, TenTG);
+        }
     }
 }
 
@@ -239,7 +240,7 @@ void ChangeInformation(Tree &t,string NameBook){
 int DemSoLuongSachTheoTG(Tree T, string Name){
     if(T == NULL){
         return 0;
-    } else{
+    }else{
         if(T->Key.TenTG==Name){
             return 1 + DemSoLuongSachTheoTG(T->Left,Name) + DemSoLuongSachTheoTG(T->Right,Name);
         }else{
@@ -325,10 +326,10 @@ void Menu(Tree T) {
                 break;
             }
             case 9:{ // Đếm số lượng sách của một tác giả
+                cin.ignore();
                 string ten;
                 cout<<"Nhap ten tac gia: ";getline(cin,ten);
                 cout << "So luong sach cua tac gia " << ten << " la: " << DemSoLuongSachTheoTG(T, ten) << endl;
-                cin.ignore();
                 break;
             }
             case 10:{ // Trung bình giá của 1 cuốn sách
@@ -346,10 +347,14 @@ void Menu(Tree T) {
                 break;
             }
             case 12: // Sử dụng hàm tìm sách theo tên tác giả để tìm sách
-                {
+                {   
+                    if(T==NULL){
+                        cout << "Khong co cuon sach nao!\n";
+                        break;
+                    }
                     string tenTacGia;
-                    cout << "Nhap ten tac gia: ";
                     cin.ignore();
+                    cout << "Nhap ten tac gia: ";
                     getline(cin, tenTacGia);
                     cout << "Sach can tim voi tac gia " << tenTacGia << " la: " << endl;
                     TimSachTheoTenTG(T, tenTacGia);
