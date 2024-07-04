@@ -437,7 +437,7 @@ void Menu(Tree T) {
 
                     ThayDoiThongTin(T, NameBook);
                 }
-                case 21://Đếm số lượng sách của tác giả trong cây
+            case 21://Đếm số lượng sách của tác giả trong cây
                 {
                     string ten;
                     cin.ignore();
@@ -445,7 +445,7 @@ void Menu(Tree T) {
 
                     cout << "So luong sach cua tac gia " << ten << " la: " << DemSoLuongSachTheoTG(T, ten) << endl;
                 }
-                    break;
+                break;
             case 22:// Thoát chương trình
                 cout << "Tam biet!";
                 break;
