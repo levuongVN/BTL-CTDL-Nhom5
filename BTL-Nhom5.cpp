@@ -35,13 +35,14 @@ void AddNode(Tree &T, Item x) {
         T->Left = NULL;
         T->Right = NULL;
     } else { // Cây không rỗng
-        if (T->Key.GiaSach > x.GiaSach) { // x nhỏ hơn key thì cho bên trái
+        if (x.GiaSach<T ->Key.GiaSach) { // x nhỏ hơn key thì cho bên trái
             AddNode(T->Left, x); // Thêm vào bên trái
         } else { // x lớn hơn key thì cho bên phải
             AddNode(T->Right, x); // Thêm vào bên phải
         }
     }
 }
+
 
 // In cây sách
 void InCaySach(Tree T) {
@@ -104,29 +105,31 @@ int DemSoLuongSach(Tree T) {
     } else
         return 0;
 }
-//In sách có giá trị dưới một giá trị nhất định nhập vào từ người dùng
-void InSachDuoiGiaTri(Tree T, int giatri  ) {
+
+void DemSach(Tree T, int price  ) {
     if (T != NULL) { // Cây không rỗng
-        if(T->Key.GiaSach <= giatri){
-           cout<< T->Key.GiaSach<<"\t"<<T->Key.TenSach<<" "<<T->Key.TenTG<<'\n';
-           InSachDuoiGiaTri(T->Left, giatri);
-           InSachDuoiGiaTri(T->Right, giatri);
-        }
-        else if (T->Key.GiaSach > giatri)
-        {
-          InSachDuoiGiaTri(T->Right, giatri);
-          InSachDuoiGiaTri(T->Left, giatri);
-        }
+     if(T->Key.GiaSach <= price){
+        cout<< T->Key.GiaSach<<"\t"<<T->Key.TenSach<<" "<<T->Key.TenTG<<'\n';
+        DemSach(T->Left, price);
+        DemSach(T->Right, price);
+     }
+     else if (T->Key.GiaSach > price)
+     {
+       DemSach(T->Right, price);
+       DemSach(T->Left, price);
+     }
     }
 }
+
 // Tìm sách theo tên tác giả
 void TimSachTheoTenTG(Tree T, string TenTG) {
-    if (T != NULL) {
+if (T != NULL) {
         if (T->Key.TenTG == TenTG) {
-            cout << "Ten sach la: " << T->Key.TenSach << "\t" << "Gia sach: " << T->Key.GiaSach << endl;
-        }
+            cout << "Ten sach la: " << T->Key.TenSach << " " << "Gia sach: " << T->Key.GiaSach << endl;
+        }else{
         TimSachTheoTenTG(T->Left, TenTG);
         TimSachTheoTenTG(T->Right, TenTG);
+        }
     }
 }
 
@@ -150,7 +153,7 @@ void TimSachTheoGiaTri(Tree T, Item x) {
     }
 }
 
-// Tìm giá trị sách lớn nhất trong cây 
+// Tìm giá trị sách lớn nhất trong cây
 TNode *TimGiaTriLonNhat(Tree T) {
     while (T->Right != NULL) {
         T = T->Right;
@@ -170,7 +173,6 @@ TNode *TimGiaTriNhoNhat(Tree T) {
 void XoaSach(Tree &T, string TenSach) {
     if (T == NULL)
         return;
-
     if (T->Key.TenSach == TenSach) {
         if (T->Left == NULL && T->Right == NULL) {
             delete T;
@@ -198,9 +200,7 @@ void XoaSach(Tree &T, string TenSach) {
 void XoaToanBoSach(Tree &T) {
     if (T == NULL) {
         return;
-    } 
-    else 
-    {
+    } else {
         XoaToanBoSach(T->Left);
         XoaToanBoSach(T->Right);
         delete T;
@@ -208,79 +208,86 @@ void XoaToanBoSach(Tree &T) {
     }
 }
 
-// Ghi từ cây vào tệp
+// Ghi dữ liệu vào tệp
 void GhiTep(Tree T, ofstream &f) {
     if (T == NULL) {
         return;
-    } 
-    else 
-    {
+    } else {
         GhiTep(T->Left, f);
         f << T->Key.TenSach << "\n" << T->Key.TenTG << "\n" << T->Key.GiaSach << "\n";
         GhiTep(T->Right, f);
     }
 }
-//Thay đổi thông tin của một cuốn sách trong cây
-void ThayDoiThongTin(Tree &T,string NameBook){
-    if(T == NULL) {
+
+void ChangeInformation(Tree &t,string NameBook){
+    if(t == NULL){
         return;
-    }
-    else
-    {
-        if(T->Key.TenSach == NameBook){
+    }else{
+        if(t->Key.TenSach == NameBook){
             cout << "Nhap ten sach moi: ";
-            getline(cin,T->Key.TenSach);
+            getline(cin,t->Key.TenSach);
             cout << "Nhap ten tac gia moi: ";
-            getline(cin,T->Key.TenTG);
+            getline(cin,t->Key.TenTG);
             cout << "Nhap gia sach moi: ";
-            cin >> T->Key.GiaSach;
+            cin >> t->Key.GiaSach;
             cin.ignore();
         }
-        ThayDoiThongTin(T->Left,NameBook);
-        ThayDoiThongTin(T->Right,NameBook);
+        ChangeInformation(t->Left,NameBook);
+        ChangeInformation(t->Right,NameBook);
     }
 }
-
+int DemSoLuongSachTheoTG(Tree T, string Name){
+    if(T == NULL){
+        return 0;
+    }else{
+        if(T->Key.TenTG==Name){
+            return 1 + DemSoLuongSachTheoTG(T->Left,Name) + DemSoLuongSachTheoTG(T->Right,Name);
+        }else{
+            return DemSoLuongSachTheoTG(T->Left,Name) + DemSoLuongSachTheoTG(T->Right,Name);
+        }
+    }
+}
 // Menu
 void Menu(Tree T) {
     int LuaChon;
-
     do {
         cout << "\nCAC CHUC NANG\n";
-        cout << "1. Khoi tao cay sach\n";
-        cout << "2. Kiem tra danh sach cay\n";
-        cout << "3. Them 1 cuon sach vao cay\n";
-        cout << "4. In cay sach\n";
-        cout << "5. In tu thap den cao theo gia tri sach\n";
-        cout << "6. In tu cao den thap theo gia tri sach\n";
-        cout << "7. Doc tu tep vao cay\n";
-        cout << "8. Tong gia tri sach trong cay\n";
-        cout << "9. Dem so luong sach trong cay\n";
+        cout << "1. Khoi tao \n";
+        cout << "2. Dem so luong sach\n";
+        cout << "3. Them 1 cuon sach\n";
+        cout << "4. In sach\n";
+        cout << "5. In sach theo gia tri tu thap den cao \n";
+        cout << "6. In sach theo gia tri tu cao den thap \n";
+        cout << "7. Doc du lieu tu tep\n";
+        cout << "8. Tong gia tri sach \n";
+        cout << "9. Dem so luong sach cua mot tac gia\n";
         cout << "10. Trung binh gia cua moi cuon sach\n";
-        cout << "11. In so sach duoi mot gia tri nhat dinh\n";
+        cout << "11. Loc sach co khoang gia nho hon gia nguoi dung nhap\n";
         cout << "12. Tim sach theo ten tac gia\n";
         cout << "13. Tim tac gia theo ten sach\n";
-        cout << "14. Tim sach theo gia tri sach\n";
-        cout << "15. Tim sach co gia tri lon nhat\n";
-        cout << "16. Tim sach co gia tri nho nhat\n";
-        cout << "17. Xoa mot cuon sach trong cay\n";
-        cout << "18. Xoa toan bo sach trong cay\n";
-        cout << "19. Ghi tu cay vao tep\n";
-        cout << "20. Thay doi thong tin mot cuon sach\n";
-        cout << "21. Thoat khoi chuong trinh\n";
+        cout << "14. Tim sach theo gia tien\n";
+        cout << "15. Tim sach co gia tien lon nhat\n";
+        cout << "16. Tim sach co gia tien nho nhat\n";
+        cout << "17. Xoa mot cuon sach\n";
+        cout << "18. Xoa toan bo sach\n";
+        cout << "19. Ghi du lieu vao tep\n";
+        cout << "20. Cap nhat thong tin moi cua mot quyen sach\n";
+        cout << "21. Tam biet!\n";
         cout << "Moi chon chuc nang (1-21)?";
         cin >> LuaChon;
         switch (LuaChon) {
-            case 1: // Khởi tạo
+            case 1:{ // Khởi tạo
                 Init(T);
                 cout << "Da khoi tao!";
+            }
                 break;
-            case 2: // Kiểm tra rỗng
+            case 2:{ // Kiểm tra rỗng
                 if (isEmpty(T))
                     cout << "Cay rong!";
                 else
-                    cout << "Cay khong rong!";
+                    cout << "So luong sach trong cay la:" << DemSoLuongSach(T) << endl;
                 break;
+            }
             case 3: // Thêm một cuốn sách vào cây
                 {
                     Item x;
@@ -294,50 +301,63 @@ void Menu(Tree T) {
                     cin >> x.GiaSach;
                     AddNode(T, x);
                     cout << "da xong!";
+                    break;
                 }
-                break;
-            case 4: // In cây sách
+              
+            case 4:{ // In cây sách
                 InCaySach(T);
                 break;
-            case 5: // In từ thấp đến cao theo giá trị
+            }
+            case 5:{ // In từ thấp đến cao theo giá trị
                 InTuThapDenCao(T);
                 break;
-            case 6:
+            }
+            case 6:{
                 InTuCaoDenThap(T);
                 break;
-            case 7: // Đọc từ tệp vào cây
+            }
+            case 7:{ // Đọc từ tệp vào cây
                 DocTep(T);
                 break;
-            case 8: // Tổng giá trị của sách trong cây
+            }
+            case 8:{ // Tổng giá trị của sách trong cây
                 cout << "Tong gia tri sach trong cay la:" << TongGiaTriSach(T) << endl;
                 break;
-            case 9: // Đếm số lượng sách có trong cây
-                cout << "So luong sach trong cay la:" << DemSoLuongSach(T) << endl;
+            }
+            case 9:{ // Đếm số lượng sách của một tác giả
+                cin.ignore();
+                string ten;
+                cout<<"Nhap ten tac gia: ";getline(cin,ten);
+                cout << "So luong sach cua tac gia " << ten << " la: " << DemSoLuongSachTheoTG(T, ten) << endl;
                 break;
-            case 10: // Trung bình giá của 1 cuốn sách
+            }
+            case 10:{ // Trung bình giá của 1 cuốn sách
                 cout << "Trung binh gia cua 1 cuon sach la:" << (float)TongGiaTriSach(T) / DemSoLuongSach(T) << endl;
                 break;
-            case 11: // In sách dưới một giá trị nhất định
-                {
-                    int giatri;
-
-                    cout<<"Nhap gia tri: ";
-                    cin>>giatri;
-
-                    if(T==NULL) {
-                        cout << "Khong co cuon sach nao!\n";
-                    }
-                    else
-                    {
-                        InSachDuoiGiaTri(T, giatri);
-                    }
-                }
+            }
+            case 11:{ // Đếm số sách dưới số tiền người dùng nhập
+                double price ;
+                cout<<"Nhap khoang gia ban muon tim kiem!\n";
+                cin>>price;
+                Tree p = new TNode;
+                p = T;
+                if(T==NULL){
+                    cout << "Khong co cuon sach nao!\n";
+                    break;
+                }else if(p->Key.GiaSach > price){
+                    cout<<"Khong co cuon sach nao trong khoang gia nay ";
+                }else{DemSach(T, price);}
                 break;
+            }
             case 12: // Sử dụng hàm tìm sách theo tên tác giả để tìm sách
-                {
+                {   
+                    if(T==NULL){
+                        cout << "Khong co cuon sach nao!\n";
+                        break;
+                    }
                     string tenTacGia;
-                    cout << "Nhap ten tac gia: ";
                     cin.ignore();
+                    cout << "Nhap ten tac gia: ";
                     getline(cin, tenTacGia);
                     cout << "Sach can tim voi tac gia " << tenTacGia << " la: " << endl;
                     TimSachTheoTenTG(T, tenTacGia);
@@ -368,9 +388,7 @@ void Menu(Tree T) {
                     Max = TimGiaTriLonNhat(T);
                     if (Max != NULL) {
                         cout << "Gia tri sach lon nhat la:" << Max->Key.GiaSach << "\t" << "Ten sach: " << Max->Key.TenSach << endl;
-                    } 
-                    else 
-                    {
+                    } else {
                         cout << "Cay rong!" << endl;
                     }
                 }
@@ -381,9 +399,7 @@ void Menu(Tree T) {
                     Min = TimGiaTriNhoNhat(T);
                     if (Min != NULL) {
                         cout << "Gia tri sach nho nhat la:" << Min->Key.GiaSach << "\t" << "Ten sach: " << Min->Key.TenSach << endl;
-                    }
-                    else 
-                    {
+                    } else {
                         cout << "Cay rong!" << endl;
                     }
                 }
@@ -398,15 +414,15 @@ void Menu(Tree T) {
                     XoaSach(T, TenSach);
                 }
                 break;
-            case 18: // Xóa toàn bộ sách trong cây
+            case 18:{ // Xóa toàn bộ sách trong cây
                 XoaToanBoSach(T);
                 cout << "Da xoa toan bo sach!" << endl;
                 break;
+            }
             case 19: // Ghi tệp
                 {
                     ofstream f("Ghi.txt");
                     if (f.is_open()) {
-
                         GhiTep(T, f);
                         f.close();
                         cout << "Da ghi tep!" << endl;
@@ -415,18 +431,17 @@ void Menu(Tree T) {
                     }
                 }
                 break;
-            case 20://Thay đổi thông tin một cuốn sách
-                {
-                    string NameBook;
-
-                    cout << "Nhap ten sach can thay doi: ";
-                    cin.ignore();
-                    getline(cin, NameBook);
-
-                    ThayDoiThongTin(T, NameBook);
+            case 20:{
+                string NameBook;
+                cout << "Nhap ten sach can thay doi: ";
+                cin.ignore();
+                getline(cin, NameBook);
+                ChangeInformation(T, NameBook);
+                break;
+                    break;
                 }
             case 21: // Thoát
-                cout << "Tam biet!";
+            cout << "Tam biet!";
                 break;
         }
     } while (LuaChon != 21);
